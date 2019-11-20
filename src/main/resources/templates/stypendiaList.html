@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="shared/header :: header-css"/>
+
+    <title>Strona domowa</title>
+</head>
+<body class="card">
+<div th:replace="shared/header :: header('stypendiaList')"/>
+
+
+<div id="main" class="card-body">
+<div th:if="${test} == 1">
+
+
+    <H1>LISTA STYPENDIÓW</H1>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Kwota</th>
+        <!--<th>Opcje</th>-->
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${stypendia}">
+
+        <td th:text="${s.name}"></td>
+        <td th:text="${s.kwota}"></td>
+
+        <td sec:authorize="hasRole('ROLE_STUDENT')"><a th:href="@{stypendiaForm.html(id=${s.id})}">Złóż podanie o stypendium</a></td>
+        <!--<td sec:authorize="hasRole('ROLE_DZIEKANAT')"><a th:href="@{usunKierunek.html(id=${kierunki.id})}">Usuń</a></td>-->
+        <!--<td sec:authorize="hasRole('ROLE_ADMIN')">-->
+            <!--<a class="btn btn-danger" th:href="@{usunStypendium.html(id=${s.id})}">Usun</a>-->
+        <!--</td>-->
+    </tr>
+
+    </tbody>
+    </table>
+</div>
+    <div th:if="${test} == 2">
+
+        <h1>Twoje stypendium to:</h1>
+
+       <h3> <span th:text="${moje}"></span>
+        <span th:text="${moje2} + zl "></span>
+       </h3>
+
+    </div>
+
+</div>
+
+<div th:replace="shared/footer :: footer"></div>
+</body>
+</html>

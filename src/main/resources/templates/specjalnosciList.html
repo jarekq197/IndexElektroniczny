@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
+<head>
+    <div th:replace="shared/header :: header-css"/>
+
+    <title>Lista specjalnosci</title>
+</head>
+<body class="card">
+<div th:replace="shared/header :: header('specjalnosciList')"/>
+
+
+<div id="main" class="card-body">
+
+
+    <span th:if="${test}==2"> <H1>LISTA SPECJALNOŚCI</H1></span>
+
+
+    <span th:if="${test}==1"><H1>Twoja specjalność to: </H1> <H1 th:text="${twoje}"></H1><br/></span>
+
+
+
+    <br>        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opcje</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+<tr th:each="nazwa: ${specjalnosci}">
+
+    <div th:if="${nazwa.id}!=4">
+
+                <td th:text="${nazwa.name}"></td>
+    <span th:if="${test}==2">            <td><a class="btn btn-success" th:href="@{podanieSpecjalnosciForm.html(id=${nazwa.id})}">Zapisz</a></span>
+                </td>
+
+    </div>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+
+    <a sec:authorize="hasRole('ADMIN')" class="btn btn-success" href="specjalnosciForm.html">Dodaj Nowy</a>
+
+</div>
+
+
+
+</div>
+</div>
+<div th:replace="shared/footer :: footer"></div>
+</body>
+</html>

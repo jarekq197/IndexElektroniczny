@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="shared/header :: header-css"/>
+    <title>Rekrutacja na kierunek</title>
+</head>
+<body>
+<div th:replace="shared/header :: header('kierunkiForm')"/>
+
+<div class="card-body container">
+
+    <!--<div th:each="zal : ${zalogowany}">-->
+        <!--<div th:text="${zal.name}"></div>-->
+        <!--</div>-->
+    <form th:method="POST" th:object="${kierunekPodanie}", th:action="@{/kierunkiForm.html}">
+
+            <h1>ZAPIS NA KIERUNEK</h1>
+
+        <div class="form-group">
+            <!--<label  class="bmd-label-floating">ID wybranego kierunku:</label>-->
+            <!--<td th:text="${kierunek.id}" name="idKierunku" th:field="*{idKieunku}"></td>-->
+            <input id="idKierunku" th:value="${zzz}" type="hidden"  name="idKierunku"
+                   class="form-control" th:classappend="${#fields.hasErrors('schoolName')}?'is-invalid'"
+                   required="true"/>
+
+
+        </div>
+
+        <div class="form-group">
+            <!--<label class="bmd-label-floating">Nazwa wybranego kierunku:</label>-->
+            <!--<td th:text="${kierunek.name}" name="nazwaKierunku" th:field="*{nazwaKierunku}"></td>-->
+            <input id="nazwaKierunku" th:value="${kierunek.name}" type="hidden" name="nazwaKierunku"
+                   class="form-control" th:classappend="${#fields.hasErrors('nazwaKierunku')}?'is-invalid'"
+                   required="true"/>
+        </div>
+
+        <div class="form-group">
+            <!--<label class="bmd-label-floating">Imie:</label>-->
+            <div th:each="zal : ${zalogowany}">
+                <!--<td th:text="${zal.name}" name="name" th:field="*{name}"></td>-->
+                <input id="id" th:value="${zalogowany.id}" type="hidden" name="idUser"
+                       class="form-control" th:classappend="${#fields.hasErrors('idUser')}?'is-invalid'"
+                       required="true"/>
+            </div>
+        </div>
+
+            <div class="form-group">
+                <!--<label class="bmd-label-floating">Imie:</label>-->
+                <div th:each="zal : ${zalogowany}">
+                <!--<td th:text="${zal.name}" name="name" th:field="*{name}"></td>-->
+                    <input id="name" th:value="${zalogowany.name}" type="hidden" name="name"
+                           class="form-control" th:classappend="${#fields.hasErrors('name')}?'is-invalid'"
+                           required="true"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!--<label class="bmd-label-floating">Nazwisko:</label>-->
+
+                <div th:each="zal : ${zalogowany}">
+                <!--<td th:text="${zal.surname}" name="surname" th:field="*{surname}"></td>-->
+                    <input id="surname" th:value="${zalogowany.surname}" type="hidden" name="surname"
+                           class="form-control" th:classappend="${#fields.hasErrors('surname')}?'is-invalid'"
+                           required="true"/>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="schoolName" class="bmd-label-floating">Nazwa ukończonej szkoły:</label>
+                <input id="schoolName" type="text" th:field="*{schoolName}"
+                       class="form-control" th:classappend="${#fields.hasErrors('schoolName')}?'is-invalid'"
+                       required="true"/>
+                <div class="error text-danger" th:if="${#fields.hasErrors('schoolName')}">
+                    <p th:each="err : ${#fields.errors('schoolName')}" th:text="${err}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="avg" class="bmd-label-floating">Uzyskana średnia:</label>
+                <input id="avg" type="number" step="0.1" th:field="*{avg}"
+                       class="form-control" th:classappend="${#fields.hasErrors('avg')}?'is-invalid'"
+                       required="true"/>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wyślij zgłoszenie"/>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input
+                            type="hidden"
+                            th:name="${_csrf.parameterName}"
+                            th:value="${_csrf.token}"/>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+<div th:replace="shared/footer :: footer"></div>
+</body>
+</html>

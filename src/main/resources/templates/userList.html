@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="shared/header :: header-css"/>
+
+    <title>Lista Użytkowników</title>
+</head>
+<body class="card">
+<div th:replace="shared/header :: header('userList')"/>
+
+    <div id="main" class="card-body">
+
+        <H1>LISTA STUDENTÓW</H1>
+        <!--<H3>Implementacja widoku z wykorzystaniem technologii szablonów Thymeleaf</H3>!-->
+        <BR>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Imie</th>
+                    <th>Nazwisko</th>
+                    <th>Email</th>
+                    <th>Kierunek</th>
+                    <th>Specjalność</th>
+
+                    <th sec:authorize="hasRole('ROLE_NAUCZYCIEL')">Opcje</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Opcje</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${user}">
+
+                    <td th:text="${u.name}"></td>
+                    <td th:text="${u.surname}"></td>
+                    <td th:text="${u.email}"></td>
+                    <td th:text="${u.kierunki.name}"></td>
+                    <td th:text="${u.specjalnosci.name}"></td>
+
+                    <td sec:authorize="hasRole('ROLE_NAUCZYCIEL')">
+                        <a class="btn btn-danger" th:href="@{wstawianieOceny.html(id=${u.id})}">Wstaw ocene</a>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-danger" th:href="@{usunStudenta.html(id=${u.id})}">Usun</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+<div th:replace="shared/footer :: footer"></div>
+</body>
+</html>
